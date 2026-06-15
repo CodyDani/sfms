@@ -1,14 +1,15 @@
 <?php
 
+require_once "../config/cors.php";
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
+}
+
 session_start();
 
 session_unset();
 session_destroy();
-
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Content-Type: application/json");
 
 echo json_encode([
     "success" => true,

@@ -1,9 +1,6 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Content-Type: application/json");
+require_once "../config/cors.php";
 
 $host = "localhost";
 $dbname = "student_finance_manager";
