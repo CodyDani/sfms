@@ -10,6 +10,7 @@ import {
   Lightbulb,
   ChevronLeft,
   ChevronRight,
+  CircleUser,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -65,6 +66,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCollapsed }) {
       name: "Insights",
       path: "/insights",
       icon: <Lightbulb size={20} />,
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: <CircleUser size={20} />,
     },
   ];
   return (

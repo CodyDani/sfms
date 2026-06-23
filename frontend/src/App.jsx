@@ -11,6 +11,7 @@ import Reports from "./pages/Reports";
 import Insights from "./pages/Insights";
 import Savings from "./pages/Savings";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -72,6 +73,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Savings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />
