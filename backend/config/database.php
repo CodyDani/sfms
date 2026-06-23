@@ -1,6 +1,7 @@
 <?php
 
-require_once "../config/cors.php";
+// require_once "../config/cors.php";
+require_once __DIR__ . '/cors.php';
 
 $host = "localhost";
 $dbname = "student_finance_manager";

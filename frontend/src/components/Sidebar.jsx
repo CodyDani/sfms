@@ -12,12 +12,22 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../api/auth";
+import api from "../api/axios";
 
 function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCollapsed }) {
+  const navigate = useNavigate();
   const handleLogout = async () => {
-    await api.post("auth/logout.php");
+    try {
+      await logout();
 
-    navigate("/login");
+      navigate("/login", {
+        replace: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const menuItems = [
@@ -199,7 +209,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCollapsed }) {
                     className="
         absolute
         left-12
-        top-1/2
+        top-1/2 
         -translate-y-1/2
         bg-slate-800
         text-white

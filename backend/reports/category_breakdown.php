@@ -6,6 +6,16 @@ session_start();
 
 require_once "../config/database.php";
 
+if (!isset($_SESSION['user_id'])) {
+
+    echo json_encode([
+        "success" => false,
+        "message" => "Unauthorized"
+    ]);
+
+    exit;
+}
+
 $user_id = $_SESSION['user_id'];
 
 $stmt = $conn->prepare("
@@ -14,12 +24,10 @@ SELECT
 
 c.category_name,
 
-c.budget_amount,
-
 COALESCE(
 SUM(e.amount),
 0
-) AS spent
+) AS total
 
 FROM categories c
 
@@ -30,22 +38,15 @@ WHERE c.user_id = ?
 
 GROUP BY c.id
 
+ORDER BY total DESC
+
 ");
 
 $stmt->execute([$user_id]);
 
-$rows =
-$stmt->fetchAll(PDO::FETCH_ASSOC);
-
-foreach ($rows as &$row) {
-
-    $row['remaining'] =
-        $row['budget_amount']
-        -
-        $row['spent'];
-}
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode([
     "success" => true,
-    "data" => $rows
+    "data" => $data
 ]);

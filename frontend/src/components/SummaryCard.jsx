@@ -1,11 +1,11 @@
-function SummaryCard({ title, amount, icon }) {
+function SummaryCard({ title, value, icon }) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border p-5">
-      <div className="flex justify-between items-center">
+    <div className="bg-white border rounded-xl p-5 shadow-sm">
+      <div className="flex justify-between">
         <div>
           <p className="text-slate-500 text-sm">{title}</p>
 
-          <h3 className="text-2xl font-bold mt-2">{amount}</h3>
+          <h2 className="text-3xl font-bold mt-2">{value}</h2>
         </div>
 
         <div>{icon}</div>

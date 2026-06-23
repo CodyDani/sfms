@@ -51,7 +51,12 @@ if ($topCategory) {
     $insights[] =
         "Your highest spending category is "
         . $topCategory['category_name']
-        . ".";
+        . " with ₦"
+        . number_format(
+            $topCategory['total_spent'],
+            2
+        )
+        . " spent.";
 }
 
 

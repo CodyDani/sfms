@@ -44,6 +44,18 @@ $totalExpenses = $stmt->fetch(PDO::FETCH_ASSOC)['total_expenses'];
 // BALANCE
 $balance = $totalIncome - $totalExpenses;
 
+//SAVINGS GOALS
+$stmt = $conn->prepare("
+    SELECT COUNT(*) as total
+    FROM savings_goals
+    WHERE user_id = ?
+    AND status = 'Active'
+");
+
+$stmt->execute([$user_id]);
+
+$activeGoals = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
 
 // ESSENTIAL EXPENSES
 $stmt = $conn->prepare(
@@ -101,5 +113,7 @@ echo json_encode([
 
     "essential_percentage" => $essentialPercentage,
 
-    "non_essential_percentage" => $nonEssentialPercentage
+    "non_essential_percentage" => $nonEssentialPercentage,
+
+    "active_goals" => $activeGoals
 ]);

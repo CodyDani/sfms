@@ -61,12 +61,20 @@ $transactionCount->execute([
 
 $transactions =
     $transactionCount->fetch(PDO::FETCH_ASSOC)['total'];
+    
+$savingsRate = 0;
+
+if ($income > 0) {
+    $savingsRate =
+        (($income - $expense) / $income) * 100;
+}
 
 echo json_encode([
     "success" => true,
     "total_income" => (float)$income,
     "total_expenses" => (float)$expense,
     "balance" => (float)($income - $expense),
+    "savings_rate" => round($savingsRate, 2),
     "categories" => (int)$categories,
     "transactions" => (int)$transactions
 ]);
