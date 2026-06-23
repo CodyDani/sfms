@@ -46,7 +46,14 @@ $stmt->execute([$user_id]);
 
 $topCategory = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$highestCategory = null;
+
 if ($topCategory) {
+
+    $highestCategory = [
+        "name" => $topCategory['category_name'],
+        "amount" => (float)$topCategory['total_spent']
+    ];
 
     $insights[] =
         "Your highest spending category is "
@@ -164,5 +171,6 @@ if (empty($insights)) {
 
 echo json_encode([
     "success" => true,
+    "highest_category" => $highestCategory,
     "insights" => $insights
 ]);
