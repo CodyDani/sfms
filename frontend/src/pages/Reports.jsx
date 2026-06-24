@@ -67,8 +67,19 @@ function Reports() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Financial Overview */}
+      <button
+        onClick={() => {
+          window.open(
+            "http://localhost/sfms/backend/reports/export_pdf.php",
+            "_blank",
+          );
+        }}
+        className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+      >
+        Export PDF
+      </button>
 
+      {/* Financial Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white border rounded-xl p-5">
           <h3 className="text-sm text-slate-500">Total Income</h3>
