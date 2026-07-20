@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { getCategories } from "../api/categories";
-import { getExpenses } from "../api/expenses";
+import {
+  getExpenses,
+  createExpense,
+  updateExpense,
+  deleteExpense,
+} from "../api/expenses";
 
 function Expenses() {
   const [categories, setCategories] = useState([]);

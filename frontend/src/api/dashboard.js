@@ -5,3 +5,9 @@ export const getDashboardSummary = async () => {
 
   return response.data;
 };
+
+export const getCurrentUser = async () => {
+  const response = await api.get("profile/me.php");
+
+  return response.data;
+};

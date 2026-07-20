@@ -17,6 +17,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$month = $_GET['month'] ?? date("n");
+$year = $_GET['year'] ?? date("Y");
 
 $sql = "
 SELECT
@@ -31,19 +33,21 @@ FROM categories c
 
 LEFT JOIN expenses e
 ON c.id = e.category_id
-
 AND e.user_id = c.user_id
+AND MONTH(e.expense_date) = ?
+AND YEAR(e.expense_date) = ?
 
 WHERE c.user_id = ?
-
 GROUP BY c.id
-
 ORDER BY c.category_name
 ";
 
 $stmt = $conn->prepare($sql);
-
-$stmt->execute([$user_id]);
+$stmt->execute([
+    $month,
+    $year,
+    $user_id
+]);
 
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -1,7 +1,23 @@
+import { useState, useEffect } from "react";
+import { getCurrentUser } from "../api/dashboard";
 import { Menu } from "lucide-react";
 
 function Navbar({ setSidebarOpen }) {
-  const userName = "Daniel Alfred";
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const response = await getCurrentUser();
+
+    if (response.success) {
+      setUser(response.user);
+    }
+  };
+
+  const userName = user?.full_name || "User";
 
   const initials = userName
     .split(" ")
@@ -16,7 +32,9 @@ function Navbar({ setSidebarOpen }) {
           <Menu size={24} />
         </button>
 
-        <h2 className="font-semibold">Student Financial Management System</h2>
+        <h2 className="font-semibold">
+          FULafia Student Financial Management System
+        </h2>
       </div>
 
       <div className="flex items-center gap-3">
@@ -24,7 +42,7 @@ function Navbar({ setSidebarOpen }) {
           {initials}
         </div>
 
-        <div className="hidden md:block">Daniel Alfred</div>
+        <div className="hidden md:block">{user?.full_name}</div>
       </div>
     </div>
   );

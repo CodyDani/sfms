@@ -14,24 +14,38 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$month = $_GET['month'] ?? date("n");
+$year = $_GET['year'] ?? date("Y");
 
 $totalIncome = $conn->prepare(
     "SELECT COALESCE(SUM(amount),0) total
      FROM income
-     WHERE user_id=?"
+     WHERE user_id = ?
+     AND MONTH(income_date) = ?
+     AND YEAR(income_date) = ?"
 );
 
-$totalIncome->execute([$user_id]);
+$totalIncome->execute([
+    $user_id,
+    $month,
+    $year
+]);
 
 $income = $totalIncome->fetch(PDO::FETCH_ASSOC)['total'];
 
 $totalExpense = $conn->prepare(
     "SELECT COALESCE(SUM(amount),0) total
      FROM expenses
-     WHERE user_id=?"
+     WHERE user_id = ?
+     AND MONTH(expense_date) = ?
+     AND YEAR(expense_date) = ?"
 );
 
-$totalExpense->execute([$user_id]);
+$totalExpense->execute([
+    $user_id,
+    $month,
+    $year
+]);
 
 $expense = $totalExpense->fetch(PDO::FETCH_ASSOC)['total'];
 
@@ -66,7 +80,7 @@ $savingsRate = 0;
 
 if ($income > 0) {
     $savingsRate =
-        (($income - $expense) / $income) * 100;
+        round((($income - $expense) / $income) * 100, 2);
 }
 
 echo json_encode([

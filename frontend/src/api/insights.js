@@ -1,7 +1,9 @@
 import api from "./axios";
 
-export const getBudgetAnalysis = async () => {
-  const response = await api.get("insights/budget_analysis.php");
+export const getBudgetAnalysis = async (month, year) => {
+  const response = await api.get(
+    `insights/budget_analysis.php?month=${month}&year=${year}`,
+  );
 
   return response.data;
 };

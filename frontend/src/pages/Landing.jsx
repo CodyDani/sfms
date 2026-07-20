@@ -8,7 +8,7 @@ function Landing() {
       <nav className="border-b">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <h1 className="text-xl font-bold text-blue-600">
-            Student Finance Tracker
+            FULafia Student Financial Management System
           </h1>
 
           <div className="space-x-4">
@@ -73,7 +73,7 @@ function Landing() {
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow">
-              <h4 className="font-bold text-lg mb-2">Smart Insights</h4>
+              <h4 className="font-bold text-lg mb-2">Insights</h4>
 
               <p>Understand spending behaviour through analysis.</p>
             </div>

@@ -4,22 +4,25 @@ import {
   getSmartInsights,
   getFinancialOverview,
 } from "../api/insights";
+import { MonitorCheck } from "lucide-react";
 
 function Insights() {
   const [budgetAnalysis, setBudgetAnalysis] = useState([]);
   const [smartInsights, setSmartInsights] = useState([]);
   const [overview, setOverview] = useState({});
   const [highestCategory, setHighestCategory] = useState(null);
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
     loadBudgetAnalysis();
     loadSmartInsights();
     loadOverview();
-  }, []);
+  }, [month, year]);
 
   const loadBudgetAnalysis = async () => {
     try {
-      const response = await getBudgetAnalysis();
+      const response = await getBudgetAnalysis(month, year);
 
       setBudgetAnalysis(response.data || []);
     } catch (error) {

@@ -10,3 +10,15 @@ export const logout = async () => {
 
   return response.data;
 };
+
+export const registerUser = async (userData) => {
+  const response = await api.post("auth/register.php", userData);
+
+  return response.data;
+};
+
+export const loginUser = async (userData) => {
+  const response = await api.post("auth/login.php", userData);
+
+  return response.data;
+};

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   X,
   LayoutDashboard,
@@ -15,7 +14,6 @@ import {
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../api/auth";
-import api from "../api/axios";
 
 function Sidebar({ sidebarOpen, setSidebarOpen, collapsed, setCollapsed }) {
   const navigate = useNavigate();

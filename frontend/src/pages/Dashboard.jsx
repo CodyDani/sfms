@@ -14,6 +14,7 @@ import ExpensePieChart from "../components/ExpensePieChart";
 import { getCategoryBreakdown, getMonthlyOverview } from "../api/charts";
 import IncomeExpenseChart from "../components/IncomeExpenseChart";
 import { getSmartInsights } from "../api/insights";
+import { getCurrentUser } from "../api/dashboard";
 
 function Dashboard() {
   const [summary, setSummary] = useState({
@@ -29,6 +30,7 @@ function Dashboard() {
   const [monthlyData, setMonthlyData] = useState(null);
   const [insights, setInsights] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     loadSummary();
@@ -37,7 +39,18 @@ function Dashboard() {
     loadGoals();
     loadCharts();
     loadInsights();
+    loadUser();
   }, []);
+
+  const loadUser = async () => {
+    const response = await getCurrentUser();
+
+    if (response.success) {
+      setUser(response.user);
+    }
+  };
+
+  const userName = user?.full_name || "User";
 
   const loadSummary = async () => {
     try {
@@ -138,7 +151,7 @@ function Dashboard() {
       {/* <p>Welcome to your financial dashboard.</p> */}
 
       <div className="bg-blue-600 text-white rounded-xl p-6 mb-6">
-        <h1 className="text-2xl font-bold">Welcome Back, Daniel 👋</h1>
+        <h1 className="text-2xl font-bold">Welcome Back, {userName} 👋</h1>
         <p className="opacity-90 mt-2">
           Here's a summary of your financial activity.
         </p>
